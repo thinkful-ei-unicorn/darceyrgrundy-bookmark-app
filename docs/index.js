@@ -9,6 +9,11 @@ function main() {
   $('#root').append(startMsg);
 }
 
+function talk() {
+  console.log('words');
+}
+
+$(talk);
 $(main);
 
 //my store: used for generating my pre-made bookmarks and updating to it to get my added ones
