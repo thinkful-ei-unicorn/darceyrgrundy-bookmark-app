@@ -4,9 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>First Webpack Project</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="javascript" href="src/index.js">
+  <title>My Bookmark App</title>
+  <h1>My Bookmark App</h1>
+  <div class="new-select">
+    <div class="new" id="clicknew">
+        Create a New Bookmark<br>
+    </div>
+
+    <div class="select">
+        <label for="stars">View bookmarks by Star Rating:</label>
+            <select name="stars" id="stars">
+            <option value="one-star">1-star and up</option>
+            <option value="two-star">2-star and up</option>
+            <option value="three-star">3-star and up</option>
+            <option value="four-star">4-star and up</option>
+            <option value="five-star">5-star</option>
+        </select>
+    </div>
+  </div>
 </head>
 <body>
+    <section class="results">
+        <ul class="bookmarks">
+            <li class="previous">
+                Bookmark 1
+            </li><br><br>
+            <li class="previous">
+                Bookmark 2
+            </li><br><br>
+            <li class="previous">
+                Bookmark 3
+            </li><br><br>
+        </ul>
+    </section>
   <div id="root"></div>
+
 </body>
 </html>
