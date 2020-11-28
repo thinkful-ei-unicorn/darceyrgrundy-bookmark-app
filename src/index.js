@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import $ from '/node_modules/jquery/dist/jquery.js';
+import $ from 'jquery';
 
 function main() {
   console.log('DOM is loaded');
