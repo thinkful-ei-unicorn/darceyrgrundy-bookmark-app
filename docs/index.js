@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import $ from 'jquery';
-import './docs/index.css';
+import './index.css';
 
 function main() {
   console.log('DOM is loaded');
