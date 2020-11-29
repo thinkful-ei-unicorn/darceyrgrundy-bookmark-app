@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+console.log('hello world');
 import $ from 'jquery';
 import './index.css';
 
@@ -12,6 +13,18 @@ function main() {
 function talk() {
   console.log('words');
 }
+
+function insertPremadeBookmarks() {
+  return 'hello';
+}
+  
+function main() {
+  insertPremadeBookmarks();
+}
+  
+$(main);
+  
+console.log('hiii', main());
 
 $(talk);
 $(main);
@@ -45,4 +58,3 @@ $(main);
 
 //-----pseudocode/things i want my code to do------
 // i want a function that takes my store and puts my bookmarks where they belong
-
