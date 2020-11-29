@@ -1,5 +1,5 @@
 console.log('hello world');
-import $ from 'jquery';
+import window.jQuery from './jquery.js';
 
 
 //my store: used for generating my pre-made bookmarks and updating to it to get my added ones
