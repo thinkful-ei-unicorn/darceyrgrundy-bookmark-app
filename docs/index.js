@@ -14,13 +14,9 @@ function talk() {
   console.log('words');
 }
 
-function insertPremadeBookmarks() {
-  return 'hello';
-}
+
   
-function main() {
-  insertPremadeBookmarks();
-}
+
   
 $(main);
   
