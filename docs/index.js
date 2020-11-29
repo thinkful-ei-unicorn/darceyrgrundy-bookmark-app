@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 console.log('hello world');
-import $ from 'jquery';
+import $ from './jquery';
 import './index.css';
 
 function main() {
