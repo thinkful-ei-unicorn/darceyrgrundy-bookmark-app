@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 console.log('hello world');
-import $ from 'jquery';
+import $ from './node_modules/dist';
 
 function main() {
   console.log('DOM is loaded');
