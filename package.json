@@ -20,7 +20,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
     "style-loader": "^2.0.0",
-    "webpack": "^4.40.0",
+    "webpack": "^4.40.1",
     "webpack-cli": "^3.3.8",
     "webpack-dev-server": "^3.8.0"
   }
