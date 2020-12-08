@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import store from './store.js';
-import $ from './jquery';
+import $ from 'jquery';
 import './index.css';
 import apiFetch from './api.js';
 
