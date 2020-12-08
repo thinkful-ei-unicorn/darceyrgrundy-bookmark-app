@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $ from './jquery';
 import './index.css';
 import bookmarks from './bookmarks';
 import api from './api';
