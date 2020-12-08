@@ -1,8 +1,8 @@
 {
-  "name": "bookmark",
+  "name": "lastbookmark",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "My Bookmark App",
+  "main": "node docs/index.js",
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack --mode production",
@@ -12,8 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/jquery": "^3.5.4",
-    "jquery": "^3.5.1"
+    "cuid": "^2.1.6",
+    "jquery": "^3.5.1",
+    "normalize.css": "^8.0.1"
   },
   "devDependencies": {
     "css-loader": "^5.0.1",
@@ -22,6 +23,6 @@
     "style-loader": "^2.0.0",
     "webpack": "^4.40.1",
     "webpack-cli": "^3.3.8",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^3.11.0"
   }
 }
