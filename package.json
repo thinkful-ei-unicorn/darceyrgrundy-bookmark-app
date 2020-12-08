@@ -1,32 +1,38 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-module.exports = {
-  entry: './docs/index.js',
-  output: {
-    path: __dirname + '/dist',
-    filename: 'index_bundle.js'
+{
+  "name": "finalbookmark",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  mode: 'development',
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './docs/index.html',
-    })
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grundydarcey/finalbookmark.git"
+  },
+  "keywords": [
+    "bookmarks"
   ],
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader'
-        ]
-      }
-    ]
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grundydarcey/finalbookmark/issues"
+  },
+  "homepage": "https://github.com/grundydarcey/finalbookmark#readme",
+  "description": "",
+  "dependencies": {
+    "cuid": "^2.1.8",
+    "jquery": "^3.5.1",
+    "normalize.css": "^8.0.1"
+  },
+  "devDependencies": {
+    "css-loader": "^5.0.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^4.40.1",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0"
   }
-};
+}
