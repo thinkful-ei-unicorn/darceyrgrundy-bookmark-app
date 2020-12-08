@@ -29,6 +29,7 @@ function setError(error) {
   this.error = error;
 }
 
+
 export default {
   bookmarks,
   adding,
@@ -38,5 +39,5 @@ export default {
   addItem,
   findAndUpdate,
   findAndDelete,
-  setError
+  setError,
 };
