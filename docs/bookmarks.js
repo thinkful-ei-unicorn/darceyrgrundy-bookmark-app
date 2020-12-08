@@ -1,4 +1,4 @@
-
+/* eslint-disable no-console */
 import $ from 'jquery';
 import store from './store.js';
 import api from './api.js';
@@ -127,6 +127,8 @@ function handleNewSubmit() {
   });
 }
 
+///myconsole///
+
 //function handledelete
 function handleDeleteItemClicked() {
   $('.main').on('click', '.js-item-delete', event => {
@@ -250,8 +252,12 @@ function render() {
     </div>
     <ul class="bookmark-list js-bookmark-list"></ul>
     </div>`;
+    //store1.loopInstead();
+    // store1.fromExport();
+    store1.accordion();
     $('.main').html(html);
-    $('.js-bookmark-list').html(bookmarkListItemsString);
+    //  $('.js-bookmark-list').html(bookmarkListItemsString);
+    //$('.js-bookmark-list').html('Hello');
   } else {
     $('.bookmarkview').empty();
   }
@@ -267,8 +273,8 @@ function allEventListeners() {
   handleNewSubmit();
   handleNewCancel();
   handleDoneClicked();
+  store1.accordionHandler();
 }
-
 
 export default {
   render,
