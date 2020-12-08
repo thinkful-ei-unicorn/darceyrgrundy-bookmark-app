@@ -64,4 +64,5 @@ export default {
   createItem,
   updateItem,
   deleteItem,
+  apiFetch,
 };
