@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import $ from './jquery';
+import $ from 'jquery';
 import store from './store.js';
 import api from './api.js';
 import store1 from './store1.js';
