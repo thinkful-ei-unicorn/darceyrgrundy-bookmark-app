@@ -5,7 +5,7 @@ import api from './api.js';
 let itemExpanded = true;
 let itemFinishedWith = true;
 
-function generateItem(item) 
+function generateItem(item) {
   let itemTitle = `
   <p class="js-item-element" data-item-id="${item.id}">${item.title}<p><br>
   <div class="rating-box">
@@ -19,7 +19,7 @@ function generateItem(item)
       <button class="bookmark-item-delete js-item-delete">Delete</button>
   </div>`;
   if (!itemExpanded === false && itemFinishedWith === true) {
-    itemTitle = `
+    let itemTitle = `
     <div class="bookmark-box">
       <div class="js-item-element">
       <span class="bookmark-item bookmark-item-expanded" data-item-id="${item.id}">${item.title}</span>
