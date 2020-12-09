@@ -1,11 +1,49 @@
 .bookmark-item {
-    background: lightcoral;
+    background: #71816D;
 }
 
-#js-edit-item-form {
-    background: #39a098;
+.bookmark-box {
+    background-color: #7c809b;
+    padding: 5px;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+.expandholder {
+    background-color: #7c809b;
+}
+
+
+#js-new-bookmark {
+    background-color: #7c809b;
+    padding: 5px;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+.js-item-element {
+    font-size: 15px;
+    list-style: none;
+}
+
+
+.expandholder {
+    background-color: #7c809b;
+    padding: 5px;
+    border-radius: 25px;
+    margin: 10px;
 }
 
 body {
-    background: lightcoral;
+    background-color: #ffcc99;
+}
+
+.main {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    color: #71816D;
+    font-family: verdana;
 }

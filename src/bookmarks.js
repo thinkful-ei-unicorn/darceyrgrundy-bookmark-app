@@ -2,35 +2,33 @@ import $ from 'jquery';
 import store from './store.js';
 import api from './api.js';
 
+
 let itemExpanded = true;
-let itemFinishedWith = true;
 
 function generateItem(item) {
-  let itemTitle = `
-  <p class="js-item-element" data-item-id="${item.id}">${item.title}<p><br>
-  <div class="rating-box">
+  let itemTitle = `<div class="expandholder">
+  ${item.title}
+<div class="rating-box">
   ${rating(item)}
-  </div>
-  <br>
-  <label> Visit site: <a href="${item.url}" target="new_blank">${item.url}</a> </label>
-  <section class="bookmark-description">${item.desc}</section>
+</div>
+<br>
+<label> Visit site: <a href="${item.url}" target="new_blank">${item.url}</a> </label>
+<section class="bookmark-description">${item.desc}</section>
   <div class="bookmark-item-controls">
       <button class="bookmark-item-toggle js-item-toggle">Done</button>
       <button class="bookmark-item-delete js-item-delete">Delete</button>
+  </div>
   </div>`;
-  if (!itemExpanded === false && itemFinishedWith === true) {
-    let itemTitle = `
-    <div class="bookmark-box">
-      <div class="js-item-element">
-      <span class="bookmark-item bookmark-item-expanded" data-item-id="${item.id}">${item.title}</span>
+  if (!item.expanded) {
+    itemTitle = `<div class="bookmark-box">
+      <span class="bookmark-item bookmark-item-expanded">${item.title}</span>
       <div class="rating-box">${rating(item)}</div>
       <button type="button" class="bookmark-item-expanded">Expand Bookmark Details</button>
-      </div>
     </div>`;
   }
-  return `
-  <li class="js-item-element" data-item-id="${item.id}"> ${itemTitle}</li>`;
+  return `<li class="js-item-element" data-item-id="${item.id}"> ${itemTitle}</li>`;
 }
+
 
 function rating(item) {
   let starsView = [];
@@ -139,19 +137,20 @@ function handleItemExpandClicked() {
   $('.main').on('click', '.bookmark-item-expanded', event => {
     const id = getItemIdFromElement(event.currentTarget);
     const item = store.findById(id);
-    itemExpanded = false;
+    item.expanded = !item.expanded;
+    console.log('please work im tried');
     render();
   });
 }
 
+/*
 function handleDoneClicked() {
   $('.main').on('click', '.bookmark-item-expanded', event => {
     const id = getItemIdFromElement(event.currentTarget);
     const item = store.findById(id);
-    itemFinishedWith = true;
     render();
   });
-}
+} */
 
 function handleFilterClick() {
   let filterValue = $('#ratings option:selected').val();
@@ -230,7 +229,7 @@ function allEventListeners() {
   $('.main').on('change','#ratings', handleFilterClick);
   handleNewSubmit();
   handleNewCancel();
-  handleDoneClicked();
+  //handleDoneClicked();
 }
 
 export default {
