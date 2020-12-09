@@ -1,35 +1,37 @@
-/* eslint-disable no-console */
 import $ from 'jquery';
 import store from './store.js';
 import api from './api.js';
-import store1 from './store1.js';
 
-//function generateItem
-function generateItem(item) {
-  let itemTitle = `<form id="js-edit-item-form">
-  <input class="bookmark-item" type="text" value="${item.title}" required/>
-</form> 
-<div class="rating-box">
+let itemExpanded = true;
+let itemFinishedWith = true;
+
+function generateItem(item) 
+  let itemTitle = `
+  <p class="js-item-element" data-item-id="${item.id}">${item.title}<p><br>
+  <div class="rating-box">
   ${rating(item)}
-</div>
-<br>
-<label> Visit site: <a href="${item.url}" target="new_blank">${item.url}</a> </label>
-<section class="bookmark-description">${item.desc}</section>
+  </div>
+  <br>
+  <label> Visit site: <a href="${item.url}" target="new_blank">${item.url}</a> </label>
+  <section class="bookmark-description">${item.desc}</section>
   <div class="bookmark-item-controls">
       <button class="bookmark-item-toggle js-item-toggle">Done</button>
       <button class="bookmark-item-delete js-item-delete">Delete</button>
   </div>`;
-  if (!item.expanded) {
-    itemTitle = `<div class="bookmark-box">
-      <span class="bookmark-item bookmark-item-expanded">${item.title}</span>
+  if (!itemExpanded === false && itemFinishedWith === true) {
+    itemTitle = `
+    <div class="bookmark-box">
+      <div class="js-item-element">
+      <span class="bookmark-item bookmark-item-expanded" data-item-id="${item.id}">${item.title}</span>
       <div class="rating-box">${rating(item)}</div>
+      <button type="button" class="bookmark-item-expanded">Expand Bookmark Details</button>
+      </div>
     </div>`;
   }
-  return `<li class="js-item-element" data-item-id="${item.id}"> ${itemTitle}</li>`;
+  return `
+  <li class="js-item-element" data-item-id="${item.id}"> ${itemTitle}</li>`;
 }
 
-
-//function rating
 function rating(item) {
   let starsView = [];
   if (item.rating > 1) {
@@ -40,7 +42,6 @@ function rating(item) {
   return starsView.join('');
 }
 
-//functiongenbookmarkitemstring
 function generateBookmarkItemsString(bookmarksList) {
   const items = bookmarksList.map((item) => generateItem(item));
   return items.join('');
@@ -55,15 +56,12 @@ $.fn.extend({
   }
 });
 
-
-//function getitemid
 function getItemIdFromElement(item) {
   return $(item)
     .closest('.js-item-element')
-    .data('.item-id');
+    .data('item-id');
 }
 
-//function generatenewform
 function generateNewForm() {
   if (store.adding) {
     const newForm = `<div class="error-placement"> </div>
@@ -99,7 +97,6 @@ function generateNewForm() {
   render();
 }
 
-//function generror
 function generateError(message) {
   return `<section class-"error-content">
   <button id="cancel">X</button>
@@ -107,9 +104,6 @@ function generateError(message) {
   </section>`;
 }
 
-
-
-//function rendererror
 function renderError() {
   if (store.error) {
     const el = generateError(store.error);
@@ -119,7 +113,6 @@ function renderError() {
   }
 }
 
-//function handlenewsub
 function handleNewSubmit() {
   $('.main').on('click', '.startnew', function event() {
     store.adding = true;
@@ -127,9 +120,6 @@ function handleNewSubmit() {
   });
 }
 
-///myconsole///
-
-//function handledelete
 function handleDeleteItemClicked() {
   $('.main').on('click', '.js-item-delete', event => {
     const id = getItemIdFromElement(event.currentTarget);
@@ -145,54 +135,30 @@ function handleDeleteItemClicked() {
   });
 }
 
-//function handleeditbookmark
-function handleEditBookmarkItemSubmit() {
-  $('.main').on('submit', '#js-edit-item-form', event => {
-    event.preventDefault();
-    const id = getItemIdFromElement(event.currentTarget);
-    const itemName = $(event.currentTarget).find('.bookmark-item').val();
-    api.updateItem(id, {title:itemName})
-      .then((newItem) => {
-        store.findAndUpdate(id, {title:itemName});
-        store.filter = 0;
-        render();
-      })
-      .catch((error) => {
-        console.log(error);
-        store.setError(error.message);
-        renderError();
-      });
-  });
-}
-
-//function handleitemexpand
 function handleItemExpandClicked() {
   $('.main').on('click', '.bookmark-item-expanded', event => {
     const id = getItemIdFromElement(event.currentTarget);
     const item = store.findById(id);
-    item.expanded = !item.expanded;
+    itemExpanded = false;
     render();
   });
 }
 
-//function handleclicked
 function handleDoneClicked() {
   $('.main').on('click', '.bookmark-item-expanded', event => {
     const id = getItemIdFromElement(event.currentTarget);
     const item = store.findById(id);
-    item.expanded = !item.expanded;
+    itemFinishedWith = true;
     render();
   });
 }
 
-//function handlefilter
 function handleFilterClick() {
   let filterValue = $('#ratings option:selected').val();
   store.filter = filterValue;
   render();
 }
 
-//function handlecancel
 function handleNewCancel() {
   $('.main').on('click', '.cancel', function event() {
     store.adding = false;
@@ -201,7 +167,6 @@ function handleNewCancel() {
   });
 }
 
-//function handlesubmit
 function handleNewItemSubmit() {
   $('.main').on('submit', '#js-new-bookmark', event => {
     event.preventDefault();
@@ -221,7 +186,6 @@ function handleNewItemSubmit() {
   });
 }
 
-//function handlecloseerror
 function handleCloseError() {
   $('.main').on('click', '#cancel', () => {
     store.setError(null);
@@ -229,11 +193,10 @@ function handleCloseError() {
   });
 }
 
-//function render
 function render() {
   renderError();
-  let items = [store.bookmarks];
-  items = items.filter(item => item.rating <= store.filter);
+  let items = [...store.bookmarks];
+  items = items.filter(item => item.rating >= store.filter);
   const bookmarkListItemsString = generateBookmarkItemsString(items);
   if (store.adding === false) {
     let html = `<div class="new-bookmark">
@@ -252,12 +215,8 @@ function render() {
     </div>
     <ul class="bookmark-list js-bookmark-list"></ul>
     </div>`;
-    //store1.loopInstead();
-    // store1.fromExport();
-    store1.accordion();
     $('.main').html(html);
-    //  $('.js-bookmark-list').html(bookmarkListItemsString);
-    //$('.js-bookmark-list').html('Hello');
+    $('.js-bookmark-list').html(bookmarkListItemsString);
   } else {
     $('.bookmarkview').empty();
   }
@@ -267,13 +226,11 @@ function allEventListeners() {
   handleNewItemSubmit();
   handleItemExpandClicked();
   handleDeleteItemClicked();
-  handleEditBookmarkItemSubmit();
   handleCloseError();
   $('.main').on('change','#ratings', handleFilterClick);
   handleNewSubmit();
   handleNewCancel();
   handleDoneClicked();
-  store1.accordionHandler();
 }
 
 export default {

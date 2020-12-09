@@ -4,7 +4,6 @@ import bookmarks from './bookmarks';
 import api from './api';
 import store from './store';
 import './index.css';
-import store1 from './store1';
 
 const main = function () {
   api.getItems()
@@ -12,8 +11,7 @@ const main = function () {
       items.forEach((item) => store.addItem(item));
       items.forEach((item) => item.expanded = false);
       bookmarks.render();
-    })
-    .then;
+    });
   bookmarks.allEventListeners();
   bookmarks.render();
 };

@@ -2,7 +2,7 @@ const BASE_URL = 'https://thinkful-list-api.herokuapp.com';
 
 function apiFetch(...args) {
   let error;
-  return fetch(...args)
+  return fetch(...args) 
     .then(res => {
       if (!res.ok) {
         error = { code: res.status };
@@ -22,7 +22,6 @@ function apiFetch(...args) {
     });
 }
 
-
 function getItems() {
   return apiFetch(`https://cors-anywhere.herokuapp.com/${BASE_URL}/darcey/bookmarks`, {
     headers: {
@@ -36,12 +35,12 @@ function createItem(bookmark) {
   return apiFetch(`https://cors-anywhere.herokuapp.com/${BASE_URL}/darcey/bookmarks`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'x',
     },
     body: bookmark,
   });
 }
-
 
 function updateItem(id, updateDataArg) {
   const updateData = JSON.stringify(updateDataArg);
@@ -52,10 +51,12 @@ function updateItem(id, updateDataArg) {
   });
 }
 
-
 function deleteItem(id) {
-  return apiFetch(`https://cors=anywhere.herokuapp.com/${BASE_URL}/DELETE/darcey/bookmarks/${id}`, {
-    method: 'DELETE'
+  return apiFetch(`https://cors-anywhere.herokuapp.com/${BASE_URL}/darcey/bookmarks/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
   });
 }
 

@@ -1,7 +1,14 @@
 .links {
-    background-color: lightcoral;
     text-align: center;
     margin: 10px;
+}
+
+.bookmark-item {
+    background: lightcoral;
+}
+
+#js-edit-item-form {
+    background: #39a098;
 }
 
 *{
