@@ -80,8 +80,8 @@ function generateNewForm() {
           </div>
       <input type="text" name="desc" class="bookmark-description-entry" placeholder="description"><br>
       <div class = "new-form-button-display">
-      <button class="Create">create</button>
-      <button class="Cancel" type="reset">cancel</button>
+      <button class="Create">Create</button>
+      <button class="Cancel" type="reset">Cancel</button>
       </div>
     </form>`;
 }
@@ -143,7 +143,7 @@ function handleFilterClick() {
 function handleNewCancel() {
   $('main').on('click', '.cancel', function event() {
     store.adding = false;
-    //generateNewForm();
+    generateNewForm();
     render();
   });
 }
