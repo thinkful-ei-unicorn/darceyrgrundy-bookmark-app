@@ -1,7 +1,9 @@
+//Store Javascript, where I have my properties that may or may not be changed by actions within my Bookmarks
 const bookmarks = [];
 let adding = false;
 let error = null;
 let filter = 0;
+let itemExpanded = true;
 
 function findById(id) {
   return this.bookmarks.find(currentItem => currentItem.id === id);
@@ -29,6 +31,7 @@ export default {
   bookmarks,
   adding,
   filter,
+  itemExpanded,
   findById,
   addItem,
   findAndDelete,

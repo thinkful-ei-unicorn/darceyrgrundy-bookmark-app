@@ -2,9 +2,6 @@ import $ from 'jquery';
 import store from './store.js';
 import api from './api.js';
 
-let itemExpanded = true;
-let currentlyAdding = false;
-
 function generateItem(item) {
   let itemTitle = `<div class="expandholder">
   <h4>${item.title}</h4>
@@ -60,9 +57,8 @@ function getItemIdFromElement(item) {
 }
 
 function generateNewForm() {
-  if (store.adding) {
-    const newForm = `<div class="error-placement"> </div>
-    <div class="adding-status"> </div>
+  return `<div class="error-placement"> </div>
+    <div class="adding-status"><p>Please be patient after hitting create on your new bookmark, the team at DarceyTech is aware of the delay.</p></div>
     <form id="js-new-bookmark">
       <label for="bookmark-entry">New Bookmark URL:</label><br>
       <input type="text" name="url" class="bookmark-url-entry" value="https://" required /><br>
@@ -84,15 +80,10 @@ function generateNewForm() {
           </div>
       <input type="text" name="desc" class="bookmark-description-entry" placeholder="description"><br>
       <div class = "new-form-button-display">
-      <button class="create">create</button>
-      <button class="cancel" type="reset">cancel</button>
+      <button class="Create">create</button>
+      <button class="Cancel" type="reset">cancel</button>
       </div>
     </form>`;
-    $('.new-bookmark').html(newForm);
-  } else {
-    $('.new-bookmark').empty();
-  }
-  render();
 }
 
 function generateError(message) {
@@ -115,7 +106,7 @@ function renderError() {
 function handleNewSubmit() {
   $('main').on('click', '.startnew', function event() {
     store.adding = true;
-    generateNewForm();
+    render();
   });
 }
 
@@ -152,7 +143,7 @@ function handleFilterClick() {
 function handleNewCancel() {
   $('main').on('click', '.cancel', function event() {
     store.adding = false;
-    generateNewForm();
+    //generateNewForm();
     render();
   });
 }
@@ -166,7 +157,7 @@ function handleNewItemSubmit() {
         store.addItem(bookmark);
         store.adding = false;
         store.filter = 0;
-        generateNewForm();
+        //generateNewForm();
         render();
       })
       .catch((error) => {
@@ -176,13 +167,6 @@ function handleNewItemSubmit() {
   });
 }
 
-function currentlyAddingMessage() {
-  $('main').on('click', '#create', () => {
-    currentlyAdding = !currentlyAdding;
-    render();
-    currentlyAdding = !currentlyAdding;
-  });
-}
 
 function handleCloseError() {
   $('main').on('click', '#cancel', () => {
@@ -215,12 +199,9 @@ function render() {
     </div>`;
     $('main').html(html);
     $('.js-bookmark-list').html(bookmarkListItemsString);
-  } else if (currentlyAdding === true) {
-    const addMessage = `<p>Please wait item is being added...</p>`;
-    $('#adding-status').html(addMessage);
-  }
-  
-  else {
+  } else if (store.adding) {
+    $('.new-bookmark').html(generateNewForm);    
+  } else {
     $('.bookmarkview').empty();
   }
 }
@@ -233,7 +214,6 @@ function allEventListeners() {
   $('main').on('change','#ratings', handleFilterClick);
   handleNewSubmit();
   handleNewCancel();
-  currentlyAddingMessage();
 }
 
 export default {
