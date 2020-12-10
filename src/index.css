@@ -4,15 +4,20 @@
 
 .bookmark-box {
     background-color: #7c809b;
-    padding: 5px;
     border-radius: 25px;
     margin: 10px;
+    font-size: 30px;
+    padding: 10px;
 }
 
 .expandholder {
     background-color: #7c809b;
+    font-size: 20px;
 }
 
+h4 {
+    font-size: 25px;
+}
 
 #js-new-bookmark {
     background-color: #7c809b;
@@ -26,12 +31,12 @@
     list-style: none;
 }
 
-
 .expandholder {
     background-color: #7c809b;
     padding: 5px;
     border-radius: 25px;
     margin: 10px;
+    font-family: verdana;
 }
 
 body {
@@ -46,4 +51,39 @@ h1 {
     text-align: center;
     color: #71816D;
     font-family: verdana;
+    font-size: 300%;
+}
+
+.startnew {
+    padding: 15px;
+    font-size: 30px;
+}
+
+
+@media all and (min-width: 600px) {
+    h1 {
+        text-align: center;
+        color: #71816D;
+        font-family: verdana;
+    }
+
+    .startnew {
+        font-size: 15px;
+        padding: 0;
+    }
+
+    .expandholder {
+        background-color: #7c809b;
+        padding: 5px;
+        border-radius: 25px;
+        margin: 10px;
+        font-family: verdana;
+    }
+
+    .bookmark-box {
+        background-color: #7c809b;
+        padding: 5px;
+        border-radius: 25px;
+        margin: 10px;
+    }
 }

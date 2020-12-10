@@ -7,7 +7,7 @@ let itemExpanded = true;
 
 function generateItem(item) {
   let itemTitle = `<div class="expandholder">
-  ${item.title}
+  <h4>${item.title}</h4>
 <div class="rating-box">
   ${rating(item)}
 </div>
@@ -15,7 +15,6 @@ function generateItem(item) {
 <label> Visit site: <a href="${item.url}" target="new_blank">${item.url}</a> </label>
 <section class="bookmark-description">${item.desc}</section>
   <div class="bookmark-item-controls">
-      <button class="bookmark-item-toggle js-item-toggle">Done</button>
       <button class="bookmark-item-delete js-item-delete">Delete</button>
   </div>
   </div>`;
@@ -143,15 +142,6 @@ function handleItemExpandClicked() {
   });
 }
 
-/*
-function handleDoneClicked() {
-  $('.main').on('click', '.bookmark-item-expanded', event => {
-    const id = getItemIdFromElement(event.currentTarget);
-    const item = store.findById(id);
-    render();
-  });
-} */
-
 function handleFilterClick() {
   let filterValue = $('#ratings option:selected').val();
   store.filter = filterValue;
@@ -201,9 +191,9 @@ function render() {
     let html = `<div class="new-bookmark">
     <div class="bookmarkview">
       <form id="startview">
-        <button class="startnew" button type="button">Add New Bookmark</button>
+        <button class="startnew" button type="button">+ Add New Bookmark</button>
         <select id="ratings" name="ratings">
-          <option> <span class="button-label"></span>View Bookmarks By Stars</span></option>
+          <option> <span class="button-label" id="starselect">View Bookmarks By Stars</span></option>
           <option value="1">1 star</option>
           <option value="2">2 stars</option>
           <option value="3">3 stars</option>
@@ -229,7 +219,6 @@ function allEventListeners() {
   $('.main').on('change','#ratings', handleFilterClick);
   handleNewSubmit();
   handleNewCancel();
-  //handleDoneClicked();
 }
 
 export default {
