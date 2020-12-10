@@ -2,8 +2,8 @@ import $ from 'jquery';
 import store from './store.js';
 import api from './api.js';
 
-
 let itemExpanded = true;
+let currentlyAdding = false;
 
 function generateItem(item) {
   let itemTitle = `<div class="expandholder">
@@ -62,6 +62,7 @@ function getItemIdFromElement(item) {
 function generateNewForm() {
   if (store.adding) {
     const newForm = `<div class="error-placement"> </div>
+    <div class="adding-status"> </div>
     <form id="js-new-bookmark">
       <label for="bookmark-entry">New Bookmark URL:</label><br>
       <input type="text" name="url" class="bookmark-url-entry" value="https://" required /><br>
@@ -110,15 +111,16 @@ function renderError() {
   }
 }
 
+
 function handleNewSubmit() {
-  $('.main').on('click', '.startnew', function event() {
+  $('main').on('click', '.startnew', function event() {
     store.adding = true;
     generateNewForm();
   });
 }
 
 function handleDeleteItemClicked() {
-  $('.main').on('click', '.js-item-delete', event => {
+  $('main').on('click', '.js-item-delete', event => {
     const id = getItemIdFromElement(event.currentTarget);
     api.deleteItem(id)
       .then(() => {
@@ -133,11 +135,10 @@ function handleDeleteItemClicked() {
 }
 
 function handleItemExpandClicked() {
-  $('.main').on('click', '.bookmark-item-expanded', event => {
+  $('main').on('click', '.bookmark-item-expanded', event => {
     const id = getItemIdFromElement(event.currentTarget);
     const item = store.findById(id);
     item.expanded = !item.expanded;
-    console.log('please work im tried');
     render();
   });
 }
@@ -149,7 +150,7 @@ function handleFilterClick() {
 }
 
 function handleNewCancel() {
-  $('.main').on('click', '.cancel', function event() {
+  $('main').on('click', '.cancel', function event() {
     store.adding = false;
     generateNewForm();
     render();
@@ -157,7 +158,7 @@ function handleNewCancel() {
 }
 
 function handleNewItemSubmit() {
-  $('.main').on('submit', '#js-new-bookmark', event => {
+  $('main').on('submit', '#js-new-bookmark', event => {
     event.preventDefault();
     const bookmark = $(event.target).serializeJson();
     api.createItem(bookmark)
@@ -175,8 +176,16 @@ function handleNewItemSubmit() {
   });
 }
 
+function currentlyAddingMessage() {
+  $('main').on('click', '#create', () => {
+    currentlyAdding = !currentlyAdding;
+    render();
+    currentlyAdding = !currentlyAdding;
+  });
+}
+
 function handleCloseError() {
-  $('.main').on('click', '#cancel', () => {
+  $('main').on('click', '#cancel', () => {
     store.setError(null);
     renderError();
   });
@@ -204,9 +213,14 @@ function render() {
     </div>
     <ul class="bookmark-list js-bookmark-list"></ul>
     </div>`;
-    $('.main').html(html);
+    $('main').html(html);
     $('.js-bookmark-list').html(bookmarkListItemsString);
-  } else {
+  } else if (currentlyAdding === true) {
+    const addMessage = `<p>Please wait item is being added...</p>`;
+    $('#adding-status').html(addMessage);
+  }
+  
+  else {
     $('.bookmarkview').empty();
   }
 }
@@ -216,9 +230,10 @@ function allEventListeners() {
   handleItemExpandClicked();
   handleDeleteItemClicked();
   handleCloseError();
-  $('.main').on('change','#ratings', handleFilterClick);
+  $('main').on('change','#ratings', handleFilterClick);
   handleNewSubmit();
   handleNewCancel();
+  currentlyAddingMessage();
 }
 
 export default {
