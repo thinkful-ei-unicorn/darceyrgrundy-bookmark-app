@@ -80,8 +80,8 @@ function generateNewForm() {
           </div>
       <input type="text" name="desc" class="bookmark-description-entry" placeholder="description"><br>
       <div class = "new-form-button-display">
-      <button class="Create">Create</button>
-      <button class="Cancel" type="reset">Cancel</button>
+      <button class="create">Create</button>
+      <button class="cancel" type="reset">Cancel</button>
       </div>
     </form>`;
 }
@@ -152,12 +152,13 @@ function handleNewItemSubmit() {
   $('main').on('submit', '#js-new-bookmark', event => {
     event.preventDefault();
     const bookmark = $(event.target).serializeJson();
+    console.log(bookmark);
     api.createItem(bookmark)
       .then((bookmark) => {
         store.addItem(bookmark);
         store.adding = false;
         store.filter = 0;
-        //generateNewForm();
+        generateNewForm();
         render();
       })
       .catch((error) => {
