@@ -79,7 +79,7 @@ function generateNewForm() {
               <div class="clear"></div>
           </div>
       <input type="text" name="desc" class="bookmark-description-entry" placeholder="description"><br>
-      <div class = "new-form-button-display">
+      <div class="new-form-button-display">
       <button class="create">Create</button>
       <button class="cancel" type="reset">Cancel</button>
       </div>
