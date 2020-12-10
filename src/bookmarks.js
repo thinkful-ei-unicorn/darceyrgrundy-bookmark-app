@@ -4,12 +4,12 @@ import api from './api.js';
 
 function generateItem(item) {
   let itemTitle = `<div class="expandholder">
-  <h4>${item.title}</h4>
+  <h2>${item.title}</h2>
 <div class="rating-box">
   ${rating(item)}
 </div>
 <br>
-<label> Visit site: <a href="${item.url}" target="new_blank">${item.url}</a> </label>
+<label class="bookmark-link"> Visit site: <a href="${item.url}" target="new_blank" class="link-to-page">${item.url}</a> </label>
 <section class="bookmark-description">${item.desc}</section>
   <div class="bookmark-item-controls">
       <button class="bookmark-item-delete js-item-delete">Delete</button>
@@ -80,15 +80,15 @@ function generateNewForm() {
           </div>
       <input type="text" name="desc" class="bookmark-description-entry" placeholder="description"><br>
       <div class="new-form-button-display">
-      <button class="create">Create</button>
-      <button class="cancel" type="reset">Cancel</button>
+      <button class="create-new-bookmark">Create</button>
+      <button class="cancel-bookmark-submit" type="reset">Cancel</button>
       </div>
     </form>`;
 }
 
 function generateError(message) {
   return `<section class-"error-content">
-  <button id="cancel">X</button>
+  <button id="cancel-error" class="cancel-error">X</button>
   <p>${message}</p>
   </section>`;
 }
@@ -141,7 +141,7 @@ function handleFilterClick() {
 }
 
 function handleNewCancel() {
-  $('main').on('click', '.cancel', function event() {
+  $('main').on('click', '.cancel-bookmark-submit', function event() {
     store.adding = false;
     generateNewForm();
     render();
@@ -170,7 +170,7 @@ function handleNewItemSubmit() {
 
 
 function handleCloseError() {
-  $('main').on('click', '#cancel', () => {
+  $('main').on('click', '#cancel-error', () => {
     store.setError(null);
     renderError();
   });
@@ -185,7 +185,7 @@ function render() {
     let html = `<div class="new-bookmark">
     <div class="bookmarkview">
       <form id="startview">
-        <button class="startnew" button type="button">+ Add New Bookmark</button>
+        <button class="startnew" button type="button" tabindex="0">+ Add New Bookmark</button>
         <select id="ratings" name="ratings" label="select-star-rating">
           <option> <span class="button-label" id="starselect">View Bookmarks By Stars</span></option>
           <option value="1">1 star</option>

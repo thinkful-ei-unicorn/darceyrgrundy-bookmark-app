@@ -15,7 +15,7 @@
     font-size: 20px;
 }
 
-h4 {
+h2 {
     font-size: 25px;
 }
 
@@ -24,6 +24,30 @@ h4 {
     padding: 5px;
     border-radius: 25px;
     margin: 10px;
+}
+
+.js-item-delete:focus {
+    text-decoration: underline;
+}
+
+.create-new-bookmark:focus {
+    text-decoration: underline;
+}
+
+.cancel-bookmark-submit:focus {
+    text-decoration: underline;
+}
+
+.cancel-error:focus {
+    text-decoration: underline;
+}
+
+.startnew :focus {
+    text-decoration: underline;
+}
+
+.bookmark-item-expanded:focus {
+    text-decoration: underline;
 }
 
 .js-item-element {
