@@ -103,7 +103,7 @@ function generateNewBookForm() {
   return `<div class="new-bookmark">
   <div class="bookmarkview">
     <form id="startview">
-      <button class="startnew" button type="button" tabindex="0">+ Add New Bookmark</button>
+      <button class="startnew" button type="button" tabindex="0">+ Add New Bookmark</button><br><br>
       <select id="ratings" name="ratings" label="select-star-rating">
         <option> <span class="button-label" id="starselect">View Bookmarks By Stars</span></option>
         <option value="1">1 star</option>

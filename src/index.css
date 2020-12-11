@@ -19,6 +19,11 @@ h2 {
     font-size: 25px;
 }
 
+.button-label {
+    font-size: 15px;
+    padding: 15px;
+}
+
 p .adding-text {
     font-size: 25px;
 }
