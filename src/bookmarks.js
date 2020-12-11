@@ -2,6 +2,7 @@ import $ from 'jquery';
 import store from './store.js';
 import api from './api.js';
 
+//this generates a return statement that goes into render with two possible variables
 function generateItem(item) {
   let itemTitle = `<div class="expandholder">
   <h2>${item.title}</h2>
@@ -36,6 +37,7 @@ function rating(item) {
   return starsView.join('');
 }
 
+//this joins together all of my individual bookmark list items
 function generateBookmarkItemsString(bookmarksList) {
   const items = bookmarksList.map((item) => generateItem(item));
   return items.join('');
@@ -56,6 +58,7 @@ function getItemIdFromElement(item) {
     .data('item-id');
 }
 
+//this returns the view of the 'add bookmark' page
 function generateNewForm() {
   return `<div class="error-placement"> </div>
     <div class="adding-status"><p>Please be patient after hitting create on your new bookmark, the team at DarceyTech is aware of the delay.</p></div>
@@ -86,6 +89,7 @@ function generateNewForm() {
     </form>`;
 }
 
+//this will show if a submission doesn't have enough information
 function generateError(message) {
   return `<section class-"error-content">
   <button id="cancel-error" class="cancel-error">X</button>
@@ -93,6 +97,7 @@ function generateError(message) {
   </section>`;
 }
 
+//this places my generated error from above
 function renderError() {
   if (store.error) {
     const el = generateError(store.error);
@@ -102,7 +107,6 @@ function renderError() {
   }
 }
 
-
 function handleNewSubmit() {
   $('main').on('click', '.startnew', function event() {
     store.adding = true;
@@ -110,6 +114,7 @@ function handleNewSubmit() {
   });
 }
 
+//this will remove my item from the bookmark list
 function handleDeleteItemClicked() {
   $('main').on('click', '.js-item-delete', event => {
     const id = getItemIdFromElement(event.currentTarget);
@@ -125,6 +130,7 @@ function handleDeleteItemClicked() {
   });
 }
 
+//this tells if user clicked on expand and signals to alternate the view
 function handleItemExpandClicked() {
   $('main').on('click', '.bookmark-item-expanded', event => {
     const id = getItemIdFromElement(event.currentTarget);
@@ -140,6 +146,7 @@ function handleFilterClick() {
   render();
 }
 
+//this tells if the cancel button was clicked in the add bookmark page and returns user back to the page with "add new button" and "filter star view"
 function handleNewCancel() {
   $('main').on('click', '.cancel-bookmark-submit', function event() {
     store.adding = false;
@@ -148,6 +155,7 @@ function handleNewCancel() {
   });
 }
 
+//this takes the submitted bookmark info and creates the item on my API
 function handleNewItemSubmit() {
   $('main').on('submit', '#js-new-bookmark', event => {
     event.preventDefault();
@@ -175,6 +183,7 @@ function handleCloseError() {
   });
 }
 
+//this ultimately control my DOM based on different if statements contained in my store js file
 function render() {
   renderError();
   let items = [...store.bookmarks];
