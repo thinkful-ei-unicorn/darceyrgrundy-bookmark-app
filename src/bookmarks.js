@@ -152,7 +152,6 @@ function handleNewItemSubmit() {
   $('main').on('submit', '#js-new-bookmark', event => {
     event.preventDefault();
     const bookmark = $(event.target).serializeJson();
-    console.log(bookmark);
     api.createItem(bookmark)
       .then((bookmark) => {
         store.addItem(bookmark);
