@@ -11,7 +11,7 @@ function generateItem(item) {
 </div>
 <br>
 <label class="bookmark-link"> Visit site: <a href="${item.url}" target="new_blank" class="link-to-page">${item.url}</a> </label>
-<section class="bookmark-description">${item.desc}</section>
+<section class="bookmark-description">${item.desc}</section><br>
   <div class="bookmark-item-controls">
       <button class="bookmark-item-delete js-item-delete">Delete</button>
   </div>
@@ -20,7 +20,7 @@ function generateItem(item) {
     itemTitle = `<div class="bookmark-box">
       <span class="bookmark-item bookmark-item-expanded">${item.title}</span>
       <div class="rating-box">${rating(item)}</div>
-      <button type="button" class="bookmark-item-expanded">Expand Bookmark Details</button>
+      <button type="button" class="bookmark-item-expand">Expand Bookmark Details</button>
     </div>`;
   }
   return `<li class="js-item-element" data-item-id="${item.id}"> ${itemTitle}</li>`;
@@ -61,14 +61,15 @@ function getItemIdFromElement(item) {
 //this returns the view of the 'add bookmark' page
 function generateNewForm() {
   return `<div class="error-placement"> </div>
-    <div class="adding-status"><p>Please be patient after hitting create on your new bookmark, the team at DarceyTech is aware of the delay.</p></div>
+    <div class="adding-status"><p class="adding-text">Please be patient after hitting create on your new bookmark, the team at DarceyTech is aware of the delay.</p></div>
     <form id="js-new-bookmark">
       <label for="bookmark-entry">New Bookmark URL:</label><br>
-      <input type="text" name="url" class="bookmark-url-entry" value="https://" required /><br>
+      <input type="text" id="bookmark-entry" name="url" class="bookmark-url-entry" value="https://" required /><br>
       <label for="bookmark-title-entry">Bookmark Title:</label><br>
-      <input type="text" name="title" class="bookmark-title-entry" placeholder="ex: Google" ><br>
+      <input type="text" id="bookmark-title-entry" name="title" class="bookmark-title-entry" placeholder="ex: Google" ><br>
       <label for="bookmark-rating-entry">Rating:</label><br>
           <div class="rating">
+            <fieldset>
               <input id="star1" name="rating" type="radio" value="1"/>
               <label for="star1" >1 star</label>
               <input id="star2" name="rating" type="radio" value="2"/>
@@ -79,9 +80,10 @@ function generateNewForm() {
               <label for="star4" >4 stars</label>
               <input id="star5" name="rating" type="radio" value="5"/>
               <label for="star5" >5 stars</label>
-              <div class="clear"></div>
+            </fieldset>  
+            <div class="clear"></div>
           </div>
-      <input type="text" name="desc" class="bookmark-description-entry" placeholder="description"><br>
+      <input type="text" name="desc" class="bookmark-description-entry" placeholder="description"><br><br>
       <div class="new-form-button-display">
       <button class="create-new-bookmark">Create</button>
       <button class="cancel-bookmark-submit" type="reset">Cancel</button>
@@ -95,6 +97,25 @@ function generateError(message) {
   <button id="cancel-error" class="cancel-error">X</button>
   <p>${message}</p>
   </section>`;
+}
+
+function generateNewBookForm() {
+  return `<div class="new-bookmark">
+  <div class="bookmarkview">
+    <form id="startview">
+      <button class="startnew" button type="button" tabindex="0">+ Add New Bookmark</button>
+      <select id="ratings" name="ratings" label="select-star-rating">
+        <option> <span class="button-label" id="starselect">View Bookmarks By Stars</span></option>
+        <option value="1">1 star</option>
+        <option value="2">2 stars</option>
+        <option value="3">3 stars</option>
+        <option value="4">4 stars</option>
+        <option value="5">5 stars</option>
+      </select>
+    </form>
+  </div>
+  <ul class="bookmark-list js-bookmark-list"></ul>
+  </div>`;
 }
 
 //this places my generated error from above
@@ -132,7 +153,7 @@ function handleDeleteItemClicked() {
 
 //this tells if user clicked on expand and signals to alternate the view
 function handleItemExpandClicked() {
-  $('main').on('click', '.bookmark-item-expanded', event => {
+  $('main').on('click', '.bookmark-item-expand', event => {
     const id = getItemIdFromElement(event.currentTarget);
     const item = store.findById(id);
     item.expanded = !item.expanded;
@@ -150,7 +171,6 @@ function handleFilterClick() {
 function handleNewCancel() {
   $('main').on('click', '.cancel-bookmark-submit', function event() {
     store.adding = false;
-    generateNewForm();
     render();
   });
 }
@@ -165,7 +185,6 @@ function handleNewItemSubmit() {
         store.addItem(bookmark);
         store.adding = false;
         store.filter = 0;
-        generateNewForm();
         render();
       })
       .catch((error) => {
@@ -190,23 +209,7 @@ function render() {
   items = items.filter(item => item.rating >= store.filter);
   const bookmarkListItemsString = generateBookmarkItemsString(items);
   if (store.adding === false) {
-    let html = `<div class="new-bookmark">
-    <div class="bookmarkview">
-      <form id="startview">
-        <button class="startnew" button type="button" tabindex="0">+ Add New Bookmark</button>
-        <select id="ratings" name="ratings" label="select-star-rating">
-          <option> <span class="button-label" id="starselect">View Bookmarks By Stars</span></option>
-          <option value="1">1 star</option>
-          <option value="2">2 stars</option>
-          <option value="3">3 stars</option>
-          <option value="4">4 stars</option>
-          <option value="5">5 stars</option>
-        </select>
-      </form>
-    </div>
-    <ul class="bookmark-list js-bookmark-list"></ul>
-    </div>`;
-    $('main').html(html);
+    $('main').html(generateNewBookForm);
     $('.js-bookmark-list').html(bookmarkListItemsString);
   } else if (store.adding) {
     $('.new-bookmark').html(generateNewForm);    

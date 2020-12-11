@@ -19,19 +19,8 @@ h2 {
     font-size: 25px;
 }
 
-#js-new-bookmark {
-    background-color: #7c809b;
-    padding: 5px;
-    border-radius: 25px;
-    margin: 10px;
-}
-
-.js-item-delete:focus {
-    text-decoration: underline;
-}
-
-.create-new-bookmark:focus {
-    text-decoration: underline;
+p .adding-text {
+    font-size: 25px;
 }
 
 .cancel-bookmark-submit:focus {
@@ -64,7 +53,7 @@ h2 {
 }
 
 body {
-    background-color: #ffcc99;
+    background-color: #E07A5F;
 }
 
 main {
@@ -73,21 +62,48 @@ main {
 
 h1 {
     text-align: center;
-    color: #000;
+    color: #170f11;
     font-family: verdana;
-    font-size: 300%;
+    font-size: 60px;
 }
 
 .startnew {
     padding: 15px;
-    font-size: 30px;
+    font-size: 15px;
 }
 
+.create-new-bookmark {
+    padding: 15px;
+    font-size: 15px;
+}
+
+.cancel-bookmark-submit {
+    padding: 15px;
+    font-size: 15px;
+}
+
+.bookmark-item-delete {
+    padding: 15px;
+    font-size: 15px;
+}
+
+.bookmark-item-expand {
+    padding: 15px;
+    font-size: 15px;
+}
+
+.bookmark-item-expanded {
+    font-size: 40px;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+    color: #2D2D24;
+}
 
 @media all and (min-width: 600px) {
     h1 {
         text-align: center;
-        color: #71816D;
+        color: #170f11;
         font-family: verdana;
     }
 
@@ -107,7 +123,22 @@ h1 {
     .bookmark-box {
         background-color: #7c809b;
         padding: 5px;
-        border-radius: 25px;
+        border-radius: 55px;
         margin: 10px;
     }
+
+    .create-new-bookmark {
+        padding: 5px;
+        font-size: 15px;
+    }
+    
+    .cancel-bookmark-submit {
+        padding: 5px;
+        font-size: 15px;
+    }
+
+    .bookmark-item-expand {
+        font-size: 15px;
+    }
+
 }
